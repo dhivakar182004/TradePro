@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Minimalist B&W Trading Presentation UI">
+    <title>Trade Minimal - Presentation Deck</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body class="presentation-mode">
+
+    <!-- Figma Style Presentation Frame Wrapper -->
+    <div class="figma-frame">
+
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="logo">
+                <div class="logo-mark">T</div>
+                <h1>TradeBase</h1>
+            </div>
+            <div class="search-bar">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" placeholder="Search assets (e.g. BTC, AAPL)...">
+            </div>
+            <div class="nav-actions">
+                <button class="action-btn"><i class="ph ph-bell"></i></button>
+                <div class="user-profile">
+                    <img src="https://i.pravatar.cc/150?img=33" alt="User">
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-content">
+
+            <!-- Left Sidebar Navigation -->
+            <aside class="sidebar">
+                <ul class="nav-links">
+                    <li class="active" data-target="view-overview"><i class="ph ph-squares-four"></i> Overview</li>
+                    <li data-target="view-markets"><i class="ph ph-chart-line-up"></i> Markets</li>
+                    <li data-target="view-portfolio"><i class="ph ph-briefcase"></i> Portfolio</li>
+                    <li data-target="view-activity"><i class="ph ph-clock-counter-clockwise"></i> Activity</li>
+                </ul>
+                <div class="sidebar-bottom">
+                    <button class="settings-btn" data-target="view-settings"><i class="ph ph-gear"></i>
+                        Settings</button>
+                </div>
+            </aside>
+
+            <!-- Center Data Area -->
+            <section class="main-panel">
+
+                <!-- VIEW: OVERVIEW -->
+                <div id="view-overview" class="view-content active">
+
+                    <!-- Hero Portfolio Stats -->
+                    <div class="portfolio-hero card">
+                        <div class="hero-left">
+                            <span class="subtext">Total Balance</span>
+                            <h2 class="hero-value">$284,520.00</h2>
+                            <div class="hero-change positive">
+                                <i class="ph ph-arrow-up-right"></i>
+                                <span>+$4,120.50 (1.45%) today</span>
+                            </div>
+                        </div>
+                        <div class="hero-right">
+                            <button class="primary-btn">Deposit Funds</button>
+                            <button class="secondary-btn">Withdraw</button>
+                        </div>
+                    </div>
+
+                    <!-- Main Chart Component -->
+                    <div class="chart-component card">
+                        <div class="chart-header">
+                            <div class="asset-title">
+                                <h3>Bitcoin <span class="ticker">BTC/USD</span></h3>
+                                <h4 class="live-price" id="btc-price">$64,230.50</h4>
+                            </div>
+                            <div class="time-filters">
+                                <button class="t-btn">1H</button>
+                                <button class="t-btn">1D</button>
+                                <button class="t-btn active">1W</button>
+                                <button class="t-btn">1M</button>
+                                <button class="t-btn">1Y</button>
+                            </div>
+                        </div>
+
+                        <div class="chart-area" id="main-chart">
+                            <!-- Pure CSS/SVG representation of a colorful chart on B&W -->
+                            <svg viewBox="0 0 1000 300" class="svg-chart" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="gradientActive" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(11, 98, 255, 0.15)" />
+                                        <stop offset="100%" stop-color="rgba(11, 98, 255, 0)" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- B&W Grid lines -->
+                                <line x1="0" y1="50" x2="1000" y2="50" class="grid-line" />
+                                <line x1="0" y1="150" x2="1000" y2="150" class="grid-line" />
+                                <line x1="0" y1="250" x2="1000" y2="250" class="grid-line" />
+
+                                <!-- Colorful vibrant data line against B&W -->
+                                <path class="area-fill" fill="url(#gradientActive)"
+                                    d="M0,300 L0,220 L100,240 L200,180 L300,210 L400,120 L500,160 L600,80 L700,110 L800,40 L900,90 L1000,20 L1000,300 Z" />
+                                <path class="data-line stroke-electric-blue" fill="none" stroke-width="4"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    d="M0,220 L100,240 L200,180 L300,210 L400,120 L500,160 L600,80 L700,110 L800,40 L900,90 L1000,20" />
+
+                                <!-- Live dot indicator -->
+                                <circle cx="1000" cy="20" r="6" fill="#0b62ff" class="pulse-dot" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Market Overview List -->
+                    <div class="market-list card">
+                        <div class="card-title">
+                            <h3>Market Movers</h3>
+                            <a href="#" class="view-all">View All</a>
+                        </div>
+
+                        <table class="minimal-table">
+                            <thead>
+                                <tr>
+                                    <th>Asset</th>
+                                    <th>Price</th>
+                                    <th>24h Change</th>
+                                    <th>Volume</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="market-tbody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- VIEW: MARKETS -->
+                    <div id="view-markets" class="view-content" style="display: none;">
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>All Markets Dashboard</h3>
+                            </div>
+                            <p style="color: var(--text-secondary); margin-bottom: 24px;">Browse and filter all
+                                available
+                                trading assets across Crypto, Stocks, Forex, and Commodities.</p>
+
+                            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                                <button class="t-btn active">All</button>
+                                <button class="t-btn">Crypto</button>
+                                <button class="t-btn">Stocks</button>
+                                <button class="t-btn">Forex</button>
+                                <button class="t-btn">Commodities</button>
+                            </div>
+
+                            <table class="minimal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Asset</th>
+                                        <th>Current Price</th>
+                                        <th>24h Change</th>
+                                        <th>Market Cap</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="m-asset">
+                                                <div class="m-icon">₿</div>
+                                                <div>
+                                                    <div style="font-weight:700;">Bitcoin</div>
+                                                    <div style="font-size:0.8rem;color:var(--text-secondary)">BTC/USD
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>$64,230.50</td>
+                                        <td class="positive">+1.45%</td>
+                                        <td style="color:var(--text-secondary)">$1.2T</td>
+                                        <td><button class="m-trade-btn">Trade</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="m-asset">
+                                                <div class="m-icon">Ξ</div>
+                                                <div>
+                                                    <div style="font-weight:700;">Ethereum</div>
+                                                    <div style="font-size:0.8rem;color:var(--text-secondary)">ETH/USD
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>$3,450.20</td>
+                                        <td class="positive">+2.40%</td>
+                                        <td style="color:var(--text-secondary)">$415B</td>
+                                        <td><button class="m-trade-btn">Trade</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="m-asset">
+                                                <div class="m-icon"></div>
+                                                <div>
+                                                    <div style="font-weight:700;">Apple Inc.</div>
+                                                    <div style="font-size:0.8rem;color:var(--text-secondary)">AAPL</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>$173.50</td>
+                                        <td class="negative">-1.20%</td>
+                                        <td style="color:var(--text-secondary)">$2.8T</td>
+                                        <td><button class="m-trade-btn">Trade</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="m-asset">
+                                                <div class="m-icon">Au</div>
+                                                <div>
+                                                    <div style="font-weight:700;">Gold</div>
+                                                    <div style="font-size:0.8rem;color:var(--text-secondary)">XAU/USD
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>$2,154.30</td>
+                                        <td class="positive">+0.80%</td>
+                                        <td style="color:var(--text-secondary)">-</td>
+                                        <td><button class="m-trade-btn">Trade</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="m-asset">
+                                                <div class="m-icon">€</div>
+                                                <div>
+                                                    <div style="font-weight:700;">Euro / US Dollar</div>
+                                                    <div style="font-size:0.8rem;color:var(--text-secondary)">EUR/USD
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>1.0924</td>
+                                        <td class="positive">+0.12%</td>
+                                        <td style="color:var(--text-secondary)">-</td>
+                                        <td><button class="m-trade-btn">Trade</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- VIEW: PORTFOLIO -->
+                    <div id="view-portfolio" class="view-content" style="display: none;">
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>Portfolio Holdings</h3>
+                            </div>
+
+                            <div style="display: flex; gap: 24px; margin: 24px 0;">
+                                <div
+                                    style="flex: 1; padding: 24px; border: 1px solid var(--border); border-radius: 8px;">
+                                    <div style="color: var(--text-secondary); font-size: 0.9rem;">Total Value</div>
+                                    <h3 style="font-size: 2rem;">$284,520.00</h3>
+                                    <div class="positive" style="margin-top: 8px;">+$4,120.50 (All Time)</div>
+                                </div>
+                                <div
+                                    style="flex: 1; padding: 24px; border: 1px solid var(--border); border-radius: 8px;">
+                                    <div style="color: var(--text-secondary); font-size: 0.9rem;">Available Cash</div>
+                                    <h3 style="font-size: 2rem;">$45,200.00</h3>
+                                    <div style="margin-top: 8px; color: var(--text-secondary);">15.8% of portfolio</div>
+                                </div>
+                            </div>
+
+                            <h4 style="margin: 32px 0 16px;">Current Allocations</h4>
+                            <table class="minimal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Asset</th>
+                                        <th>Holdings</th>
+                                        <th>Avg. Buy Price</th>
+                                        <th>Unrealized P&L</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Bitcoin (BTC)</strong></td>
+                                        <td>2.50 BTC <span
+                                                style="display:block; font-size: 0.8rem; color: var(--text-secondary);">$160,575.00</span>
+                                        </td>
+                                        <td>$42,100.00</td>
+                                        <td class="positive">+$55,325.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Apple (AAPL)</strong></td>
+                                        <td>150 Shares <span
+                                                style="display:block; font-size: 0.8rem; color: var(--text-secondary);">$26,025.00</span>
+                                        </td>
+                                        <td>$180.20</td>
+                                        <td class="negative">-$1,005.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ethereum (ETH)</strong></td>
+                                        <td>15.2 ETH <span
+                                                style="display:block; font-size: 0.8rem; color: var(--text-secondary);">$52,443.04</span>
+                                        </td>
+                                        <td>$2,100.50</td>
+                                        <td class="positive">+$20,515.44</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- VIEW: ACTIVITY -->
+                    <div id="view-activity" class="view-content" style="display: none;">
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>Transaction History</h3>
+                                <button class="secondary-btn" style="padding: 8px 16px;">Download CSV</button>
+                            </div>
+
+                            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                                <input type="text" placeholder="Search transactions..."
+                                    style="padding: 10px; border: 1px solid var(--border); border-radius: 6px; width: 300px;">
+                                <select style="padding: 10px; border: 1px solid var(--border); border-radius: 6px;">
+                                    <option>All Types</option>
+                                    <option>Deposits</option>
+                                    <option>Withdrawals</option>
+                                    <option>Trades</option>
+                                </select>
+                            </div>
+
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                                <li
+                                    style="padding: 20px; border: 1px solid var(--border); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; gap: 16px; align-items: center;">
+                                        <div class="bg-light-purple"
+                                            style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <i class="ph ph-arrows-left-right"></i></div>
+                                        <div>
+                                            <strong>Bought 0.05 BTC @ $64,230.50</strong>
+                                            <div
+                                                style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">
+                                                Market Order • Today, 14:32 PM</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span class="negative"
+                                            style="display: block; font-weight: 700; font-size: 1.1rem;">-$3,211.52</span>
+                                        <span style="color: var(--text-secondary); font-size: 0.85rem;">Fee:
+                                            $12.50</span>
+                                    </div>
+                                </li>
+                                <li
+                                    style="padding: 20px; border: 1px solid var(--border); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; gap: 16px; align-items: center;">
+                                        <div class="bg-light-green"
+                                            style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <i class="ph ph-arrow-down-left"></i></div>
+                                        <div>
+                                            <strong>Wire Deposit (Chase Bank)</strong>
+                                            <div
+                                                style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">
+                                                Completed • Yesterday, 09:15 AM</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span class="positive"
+                                            style="display: block; font-weight: 700; font-size: 1.1rem;">+$10,000.00</span>
+                                    </div>
+                                </li>
+                                <li
+                                    style="padding: 20px; border: 1px solid var(--border); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; gap: 16px; align-items: center;">
+                                        <div class="bg-light-purple"
+                                            style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <i class="ph ph-arrows-left-right"></i></div>
+                                        <div>
+                                            <strong>Sold 50 AAPL @ $175.20</strong>
+                                            <div
+                                                style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">
+                                                Limit Order • Aug 22, 11:05 AM</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span class="positive"
+                                            style="display: block; font-weight: 700; font-size: 1.1rem;">+$8,760.00</span>
+                                        <span style="color: var(--text-secondary); font-size: 0.85rem;">Fee:
+                                            $4.50</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- VIEW: SETTINGS -->
+                    <div id="view-settings" class="view-content" style="display: none;">
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>Account Settings</h3>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 24px; margin-top: 24px;">
+                                <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+                                    <h4 style="margin-bottom: 8px;">Profile Details</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Manage email, password,
+                                        and security settings.</p>
+                                </div>
+                                <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+                                    <h4 style="margin-bottom: 8px;">Preferences</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Update base currency and
+                                        notification preferences.</p>
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 8px; color: var(--vibrant-red);">Danger Zone</h4>
+                                    <button
+                                        style="background: transparent; border: 1px solid var(--vibrant-red); color: var(--vibrant-red); padding: 8px 16px; border-radius: 6px; cursor: pointer;">Delete
+                                        Account</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </section>
+
+            <!-- Right Sidebar Panel -->
+            <aside class="right-panel">
+
+                <!-- Quick Trade Ticket -->
+                <div class="trade-ticket card">
+                    <h3>Quick Trade</h3>
+
+                    <div class="trade-tabs">
+                        <button class="trade-tab active">Buy</button>
+                        <button class="trade-tab">Sell</button>
+                        <button class="trade-tab">Convert</button>
+                    </div>
+
+                    <div class="input-wrap">
+                        <label>Asset</label>
+                        <div class="minimal-input select-mode">
+                            <div class="selected-asset">
+                                <div class="asset-icon btc">₿</div>
+                                <span>Bitcoin (BTC)</span>
+                            </div>
+                            <i class="ph ph-caret-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-wrap">
+                        <label>Amount</label>
+                        <div class="minimal-input">
+                            <span class="currency-prefix">$</span>
+                            <input type="number" value="1000.00" placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <div class="receipt">
+                        <div class="r-row">
+                            <span>You will receive roughly</span>
+                            <span class="bold">0.0155 BTC</span>
+                        </div>
+                        <div class="r-row">
+                            <span>Estimated Fee</span>
+                            <span>$2.50</span>
+                        </div>
+                    </div>
+
+                    <button class="execute-btn bg-vibrant-green">Buy BTC</button>
+                </div>
+
+                <!-- Recent Activity Small Widget -->
+                <div class="activity-widget card mt-4">
+                    <h3>Recent History</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="a-icon bg-light-green"><i class="ph ph-arrow-down-left"></i></div>
+                            <div class="a-details">
+                                <h4>Deposit</h4>
+                                <span>Aug 24, 2024</span>
+                            </div>
+                            <div class="a-amount positive">+$5,000.00</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="a-icon bg-light-purple"><i class="ph ph-arrows-left-right"></i></div>
+                            <div class="a-details">
+                                <h4>Trade (BTC)</h4>
+                                <span>Aug 23, 2024</span>
+                            </div>
+                            <div class="a-amount">-$1,250.00</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="a-icon bg-light-red"><i class="ph ph-arrow-up-right"></i></div>
+                            <div class="a-details">
+                                <h4>Withdraw</h4>
+                                <span>Aug 21, 2024</span>
+                            </div>
+                            <div class="a-amount negative">-$800.00</div>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+        </main>
+    </div>
+    <script src="script.js?v=3"></script>
+</body>
+
+</html>
