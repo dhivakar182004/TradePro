@@ -1,28 +1,32 @@
 :root {
-    /* Extreme Minimalist B&W Palette */
+    /* Exness Palette */
     --bg-main: #f5f5f7;
-    /* Very light gray for the Figma presentation background */
     --bg-frame: #ffffff;
-    /* Pure white for the main app frame */
 
     --text-primary: #111111;
-    --text-secondary: #666666;
-    --border: #eaeaea;
-    --border-dark: #cccccc;
+    --text-secondary: #6b7280;
+    --border: #eef0f2;
+    --border-dark: #d1d5db;
 
-    /* "Exhaustive Colours" for Accents against B&W */
-    --vibrant-green: #00e054;
-    --vibrant-red: #ff3366;
-    --electric-blue: #0b62ff;
+    /* Exness Signature Colors */
+    --exness-yellow: #ffc000;
+    --exness-yellow-hover: #e6ac00;
+    --exness-black: #111111;
 
-    /* Layout */
-    --radius-sm: 8px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
+    /* Semantic Colors */
+    --vibrant-green: #0ea5e9;
+    /* For positive numbers/charts, Exness often uses blue or green depending on the region */
+    --vibrant-red: #ef4444;
+    --electric-blue: #0ea5e9;
+
+    /* Layout - Exness is slightly more squared */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
     --radius-full: 9999px;
 
-    --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.04);
-    --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.08);
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08);
 
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -260,8 +264,21 @@ body.presentation-mode {
 }
 
 .nav-links li.active {
-    background-color: var(--text-primary);
-    color: white;
+    background-color: transparent;
+    color: var(--text-primary);
+    font-weight: 700;
+    position: relative;
+}
+
+.nav-links li.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    height: 70%;
+    width: 4px;
+    background-color: var(--exness-yellow);
+    border-radius: 0 4px 4px 0;
 }
 
 .sidebar-bottom {
@@ -343,24 +360,28 @@ body.presentation-mode {
 .primary-btn,
 .secondary-btn {
     padding: 14px 24px;
-    border-radius: var(--radius-full);
-    font-weight: 600;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
     transition: var(--transition);
     font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .primary-btn {
-    background-color: var(--text-primary);
-    color: white;
-    border: 1px solid var(--text-primary);
+    background-color: var(--exness-yellow);
+    color: var(--exness-black);
+    border: 1px solid var(--exness-yellow);
 }
 
 .primary-btn:hover {
-    background-color: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    background-color: var(--exness-yellow-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 192, 0, 0.2);
 }
 
 .secondary-btn {
@@ -423,13 +444,17 @@ body.presentation-mode {
 
 .t-btn {
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     background: transparent;
     border: none;
     font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
     transition: var(--transition);
+}
+
+.t-btn:hover {
+    color: var(--text-primary);
 }
 
 .t-btn.active {
@@ -548,16 +573,16 @@ body.presentation-mode {
     background: transparent;
     border: 1px solid var(--border-dark);
     padding: 6px 16px;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-sm);
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
 }
 
 .m-trade-btn:hover {
-    background: var(--text-primary);
-    color: white;
-    border-color: var(--text-primary);
+    background: var(--exness-yellow);
+    color: var(--exness-black);
+    border-color: var(--exness-yellow);
 }
 
 /* Right Panel */
@@ -625,15 +650,15 @@ body.presentation-mode {
     background: white;
     border: 1px solid var(--border);
     padding: 16px;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     transition: var(--transition);
 }
 
 .minimal-input:focus-within {
-    border-color: var(--electric-blue);
-    box-shadow: 0 0 0 4px rgba(11, 98, 255, 0.1);
+    border-color: var(--exness-yellow);
+    box-shadow: 0 0 0 4px rgba(255, 192, 0, 0.1);
 }
 
 .minimal-input.select-mode {
@@ -711,14 +736,14 @@ body.presentation-mode {
     width: 100%;
     padding: 16px;
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
     font-family: inherit;
     margin-top: 8px;
-    box-shadow: 0 8px 16px rgba(0, 224, 84, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .execute-btn:hover {
